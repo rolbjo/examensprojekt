@@ -20,6 +20,6 @@ jobs:
 
       - name: Install dependencies and run Cypress tests
         run: |
-          cd frontend
+          cd Frontend
           npm ci
           npm run test
