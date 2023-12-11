@@ -1,28 +1,25 @@
-name: Node.js CI
+name: CI
 
 on:
   push:
     branches:
-      - main
+      - main # Change this to your main branch
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.10.0
+          node-version: 20.1.0
 
-      - name: Change to frontend directory
-        run: cd frontend
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
+      - name: Install dependencies and run Cypress tests
+        run: |
+          cd frontend
+          npm ci
+          npm run test
