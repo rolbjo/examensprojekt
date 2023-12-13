@@ -7,7 +7,7 @@
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-frontend": "npm run --prefix ../frontend build && rm -Rf public && cp -R ../frontend/dist public",
-    "dev": "nodemon index.ts"
+    "dev": "concurrently \"nodemon index.js\" \"npx tsc --watch\""
   },
   "keywords": [],
   "author": "",
@@ -25,7 +25,7 @@
     "@types/node": "^20.10.4",
     "@types/pg": "^8.10.9",
     "concurrently": "^8.2.2",
-    "nodemon": "^3.0.1",
+    "nodemon": "^3.0.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.3.3"
   }
