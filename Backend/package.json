@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-frontend": "npm run --prefix ../frontend build && rm -Rf public && cp -R ../frontend/dist public",
+    "build-frontend": "npm run --prefix ../Frontend build && rm -Rf public && cp -R ../Frontend/dist public",
     "dev": "concurrently \"nodemon index.js\" \"npx tsc --watch\""
   },
   "keywords": [],
