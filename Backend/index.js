@@ -6,6 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const pg_1 = require("pg");
+dotenv_1.default.config();
+const client = new pg_1.Client({
+    connectionString: process.env.PGURI,
+});
+client.connect();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.get('/data', (request, response) => {
