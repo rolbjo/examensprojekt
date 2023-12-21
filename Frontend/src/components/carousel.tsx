@@ -1,26 +1,32 @@
-import Carousel from 'react-bootstrap/Carousel'
-
 import React from 'react'
+import { Carousel } from 'react-bootstrap'
+import '../styles/components/carousel.scss'
 
-function carousel() {
+interface CarouselProps {
+  interval: number
+}
+
+const MyCarousel: React.FC<CarouselProps> = ({ interval }) => {
   return (
-    <Carousel data-bs-theme='dark'>
-      <Carousel.Item>
-        <img
-          className='d-block w-100'
-          src='https://example.com/slide1.jpg'
-          alt='First slide'
-        />
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className='d-block w-100'
-          src='https://example.com/slide2.jpg'
-          alt='Second slide'
-        />
-      </Carousel.Item>
-    </Carousel>
+    <div className='carouselDiv'>
+      <Carousel interval={interval}>
+        <Carousel.Item>
+          <img
+            className='d-block'
+            src='https://source.unsplash.com/random/800x400'
+            alt='First slide'
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className='d-block'
+            src='https://source.unsplash.com/random/800x401'
+            alt='Second slide'
+          />
+        </Carousel.Item>
+      </Carousel>
+    </div>
   )
 }
 
-export default carousel
+export default MyCarousel

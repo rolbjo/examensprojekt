@@ -1,0 +1,20 @@
+
+
+.carouselDiv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+  .carousel-item {
+    transition: transform 0.6s ease-in-out;
+  }
+
+  .carousel {
+    width: 80%;
+
+  }
+
+  img {
+
+    margin: 0 auto; /* Center the image within the container */
+  }
