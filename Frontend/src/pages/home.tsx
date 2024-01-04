@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import '../App.css'
 import Carousel from '../components/carousel'
-import '../styles/pages/home.scss'
+import styles from '../styles/pages/home.module.scss'
 
 function Home() {
   const [hej, setHej] = useState('')
@@ -19,10 +18,10 @@ function Home() {
 
   return (
     <>
-      <h1>What is your next travel goal?</h1>
+      <h1 className={styles.homeHeader}>What is your next travel goal?</h1>
       <p>{hej}</p>
 
-      <Carousel interval={2000} />
+      <Carousel interval={3000} />
     </>
   )
 }

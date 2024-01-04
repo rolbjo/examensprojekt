@@ -16,11 +16,33 @@ const app = express()
 
 app.use(cors())
 
-app.get('/data', (request, response) => {
-  response.send('Hello Wefepfsergokerorld!')
+app.get('/data', (req, res) => {
+  res.send('Hello Wefepfsergokerorld!')
+})
+
+app.get('/data/:destination', async (req, res) => {
+  try {
+    const { destination } = req.params
+    console.log('Destination Parameter:', destination)
+    console.log('Destination Parameter:', destination, typeof destination)
+
+    const data = await client.query(
+      'SELECT * FROM destinations WHERE name = $1',
+      [destination]
+    )
+
+    res.json(data.rows)
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    res.status(500).json({ error: 'Internal Server Error' })
+  }
 })
 
 app.use(express.static(path.join(path.resolve(), 'public')))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(path.resolve(), 'public', 'index.html'))
+})
 
 app.listen(3000, () => {
   console.log('Webbtjänsten kan nu ta emot anrop.')

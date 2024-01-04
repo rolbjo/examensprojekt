@@ -10,7 +10,9 @@ function NavScrollExample() {
   return (
     <Navbar expand='lg' className='bg-body-tertiary'>
       <Container fluid>
-        <Navbar.Brand href='#'>Travel inspo</Navbar.Brand>
+        <Navbar.Brand as={Link} to='/home'>
+          Travel inspo
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls='navbarScroll' />
         <Navbar.Collapse id='navbarScroll'>
           <Nav

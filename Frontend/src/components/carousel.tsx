@@ -1,5 +1,6 @@
 import React from 'react'
 import { Carousel } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import '../styles/components/carousel.scss'
 
 interface CarouselProps {
@@ -11,18 +12,40 @@ const MyCarousel: React.FC<CarouselProps> = ({ interval }) => {
     <div className='carouselDiv'>
       <Carousel interval={interval}>
         <Carousel.Item>
-          <img
-            className='d-block'
-            src='https://source.unsplash.com/random/800x400'
-            alt='First slide'
-          />
+          <Link to={'/New York'}>
+            <img
+              className='d-block carouselImg'
+              src='/brooklyn-bridge-1791001_1280.jpg'
+              alt='First slide'
+            />
+          </Link>
         </Carousel.Item>
         <Carousel.Item>
-          <img
-            className='d-block'
-            src='https://source.unsplash.com/random/800x401'
-            alt='Second slide'
-          />
+          <Link to={'/Dubai'}>
+            <img
+              className='d-block carouselImg'
+              src='/burj-khalifa-2212978_1280.jpg'
+              alt='Second slide'
+            />
+          </Link>
+        </Carousel.Item>
+        <Carousel.Item>
+          <Link to={'/Japan'}>
+            <img
+              className='d-block carouselImg'
+              src='/heritage-5430081_1280.jpg'
+              alt='Second slide'
+            />
+          </Link>
+        </Carousel.Item>
+        <Carousel.Item>
+          <Link to={'/Italy'}>
+            <img
+              className='d-block carouselImg'
+              src='/houses-4093227_1280.jpg'
+              alt='Second slide'
+            />
+          </Link>
         </Carousel.Item>
       </Carousel>
     </div>
