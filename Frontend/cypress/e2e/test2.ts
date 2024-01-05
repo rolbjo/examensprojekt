@@ -5,7 +5,7 @@ Given('Jag är på hemsidan och ser slumpa knappen', () => {
 })
 
 When('Jag klickar på knappen', () => {
-  cy.get('button').click()
+  cy.get('.RandomButton').click()
 })
 
 Then('Ett land med info visas', () => {
