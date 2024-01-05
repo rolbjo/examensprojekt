@@ -24,9 +24,6 @@ const client = new pg_1.Client({
 client.connect();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
-app.get('/data', (req, res) => {
-    res.send('Hello Wefepfsergokerorld!');
-});
 app.get('/data/:destination', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { destination } = req.params;

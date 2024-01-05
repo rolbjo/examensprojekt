@@ -16,10 +16,6 @@ const app = express()
 
 app.use(cors())
 
-app.get('/data', (req, res) => {
-  res.send('Hello Wefepfsergokerorld!')
-})
-
 app.get('/data/:destination', async (req, res) => {
   try {
     const { destination } = req.params

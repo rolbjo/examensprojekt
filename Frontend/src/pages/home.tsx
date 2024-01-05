@@ -20,7 +20,6 @@ function Home() {
     <>
       <h1 className={styles.homeHeader}>What is your next travel goal?</h1>
       <p>{hej}</p>
-
       <Carousel interval={3000} />
     </>
   )
