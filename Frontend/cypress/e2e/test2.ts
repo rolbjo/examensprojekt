@@ -1,7 +1,7 @@
 import { When, Then, Given } from '@badeball/cypress-cucumber-preprocessor'
 
 Given('Jag är på hemsidan och ser slumpa knappen', () => {
-  cy.wait(5000)
+  cy.wait(3000)
   cy.visit('http://localhost:3000/')
 })
 
