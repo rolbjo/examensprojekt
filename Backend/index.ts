@@ -16,6 +16,19 @@ const app = express()
 
 app.use(cors())
 
+app.get('/data/destinations', async (req, res) => {
+  try {
+    const data = await client.query('SELECT * FROM destinations')
+
+    console.log('the data.rows', data.rows)
+
+    res.json(data.rows)
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
 app.get('/data/:destination', async (req, res) => {
   try {
     const { destination } = req.params

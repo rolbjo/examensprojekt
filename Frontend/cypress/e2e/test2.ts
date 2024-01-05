@@ -1,7 +1,7 @@
 import { When, Then, Given } from '@badeball/cypress-cucumber-preprocessor'
 
 Given('Jag är på hemsidan och ser slumpa knappen', () => {
-  cy.visit('http://localhost:5173/')
+  cy.visit('http://localhost:3000/')
 })
 
 When('Jag klickar på knappen', () => {
@@ -9,6 +9,6 @@ When('Jag klickar på knappen', () => {
 })
 
 Then('Ett land med info visas', () => {
-  cy.get('.RandomDest').should('exist')
-  cy.get('.DestName').should('contain.text', 'Dubai')
+  cy.get('.MainContainer').should('exist')
+  cy.get('h1').should('exist')
 })

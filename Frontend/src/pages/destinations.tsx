@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import styles from '../styles/pages/destinations.module.scss'
+import { useParams, useSearchParams } from 'react-router-dom'
+import RandomDest from '../components/randomDestButton'
+import '../styles/pages/destinations.scss'
 
 interface DestinationData {
   id: number
@@ -14,6 +15,7 @@ const Destinations: React.FC = () => {
   const { destination } = useParams<{ destination: string }>()
   const [destinationData, setDestinationData] =
     useState<DestinationData | null>(null)
+  const [searchParams] = useSearchParams()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,9 +28,10 @@ const Destinations: React.FC = () => {
         console.error('Error fetching data:', error)
       }
     }
-
     fetchData()
   }, [destination])
+
+  const fromRandom = searchParams.get('fromRandom') === 'true'
 
   return (
     <>
@@ -36,13 +39,13 @@ const Destinations: React.FC = () => {
         <>
           <div>
             <h1>{destinationData.name}</h1>
-            <div className={styles.mainContainer}>
+            <div className='MainContainer'>
               <img
                 src={`/${destinationData.img}`}
                 alt=''
-                className={styles.destinationImg}
+                className='DestinationImg'
               />
-              <div className={styles.listDiv}>
+              <div className='ListDiv'>
                 <div>
                   <h2>When to Travel</h2>
                   <ul>
@@ -62,6 +65,7 @@ const Destinations: React.FC = () => {
               </div>
             </div>
           </div>
+          {fromRandom && <RandomDest />}
         </>
       ) : (
         <p>Loading...</p>

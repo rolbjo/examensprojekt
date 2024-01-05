@@ -6,4 +6,4 @@ ska ett slumpmässigt land med info visas.
 Scenario: Jag klickar på knappen
 Given Jag är på hemsidan och ser slumpa knappen
 When Jag klickar på knappen
-Then Ett land med info ska visas
+Then Ett land med info visas

@@ -24,6 +24,17 @@ const client = new pg_1.Client({
 client.connect();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
+app.get('/data/destinations', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield client.query('SELECT * FROM destinations');
+        console.log('the data.rows', data.rows);
+        res.json(data.rows);
+    }
+    catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}));
 app.get('/data/:destination', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { destination } = req.params;
