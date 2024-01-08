@@ -26,8 +26,12 @@ const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.get('/data/destinations', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield client.query('SELECT * FROM destinations');
-        console.log('the data.rows', data.rows);
+        const { query } = req.query;
+        let queryText = 'SELECT * FROM destinations';
+        if (query) {
+            queryText += ` WHERE name ILIKE '%${query}%'`;
+        }
+        const data = yield client.query(queryText);
         res.json(data.rows);
     }
     catch (error) {

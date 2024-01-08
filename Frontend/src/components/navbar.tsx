@@ -1,12 +1,36 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
-function NavScrollExample() {
+function NavbarComponent() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const navigate = useNavigate()
+
+  const handleSearchSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+    try {
+      const response = await fetch(`/data/destinations?query=${searchQuery}`)
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch destinations')
+      }
+
+      const data = await response.json()
+      console.log('Fetched destinations:', data)
+
+      const destinationName = data[0]?.name
+
+      navigate(`/${destinationName}`)
+      console.log(destinationName)
+    } catch (error) {
+      console.error('Error fetching destinations:', error)
+    }
+  }
+
   return (
     <Navbar sticky='top' expand='lg' className='bg-body-tertiary'>
       <Container fluid>
@@ -27,14 +51,18 @@ function NavScrollExample() {
               About
             </Nav.Link>
           </Nav>
-          <Form className='d-flex'>
+          <Form className='d-flex' onSubmit={handleSearchSubmit}>
             <Form.Control
               type='search'
               placeholder='Search'
               className='me-2'
               aria-label='Search'
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <Button variant='outline-success'>Search</Button>
+            <Button variant='outline-success' type='submit'>
+              Search
+            </Button>
           </Form>
         </Navbar.Collapse>
       </Container>
@@ -42,4 +70,4 @@ function NavScrollExample() {
   )
 }
 
-export default NavScrollExample
+export default NavbarComponent

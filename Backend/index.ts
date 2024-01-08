@@ -18,9 +18,15 @@ app.use(cors())
 
 app.get('/data/destinations', async (req, res) => {
   try {
-    const data = await client.query('SELECT * FROM destinations')
+    const { query } = req.query
 
-    console.log('the data.rows', data.rows)
+    let queryText = 'SELECT * FROM destinations'
+
+    if (query) {
+      queryText += ` WHERE name ILIKE '%${query}%'`
+    }
+
+    const data = await client.query(queryText)
 
     res.json(data.rows)
   } catch (error) {

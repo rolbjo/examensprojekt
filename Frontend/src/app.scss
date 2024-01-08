@@ -1,11 +1,9 @@
-:root {
-  --bs-body-font-family: 'Fjalla One', sans-serif;
-}
 
 body {
   margin: 0;
-  font-family: var(--bs-body-font-family);
+  font-family: 'Fjalla One', sans-serif !important;
 }
+
 
 .AppWrapper {
   display: flex;
