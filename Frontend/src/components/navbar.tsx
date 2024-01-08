@@ -8,7 +8,7 @@ import Navbar from 'react-bootstrap/Navbar'
 
 function NavScrollExample() {
   return (
-    <Navbar expand='lg' className='bg-body-tertiary'>
+    <Navbar sticky='top' expand='lg' className='bg-body-tertiary'>
       <Container fluid>
         <Navbar.Brand as={Link} to='/home'>
           Travel inspo

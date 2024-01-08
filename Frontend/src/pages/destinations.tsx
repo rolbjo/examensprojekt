@@ -38,7 +38,7 @@ const Destinations: React.FC = () => {
       {destinationData ? (
         <>
           <div>
-            <h1>{destinationData.name}</h1>
+            <h1 className='Desth1'>{destinationData.name}</h1>
             <div className='MainContainer'>
               <img
                 src={`/${destinationData.img}`}

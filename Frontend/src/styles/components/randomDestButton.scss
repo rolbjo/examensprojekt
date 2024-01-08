@@ -1,5 +1,13 @@
 .RandomButton {
-  color: red;
+  margin-top: 40px;
+  border-radius: 20px;
+  color: black;
+  background-color: #f8f9fa;
+  padding: 20px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+.RandomButton:hover{
+  box-shadow: 0 8px 6px rgba(0, 0, 0, 0.5);
 }
 .ButtonContainer {
   display: flex;
