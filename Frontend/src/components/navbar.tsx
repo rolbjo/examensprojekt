@@ -51,16 +51,20 @@ function NavbarComponent() {
               About
             </Nav.Link>
           </Nav>
-          <Form className='d-flex' onSubmit={handleSearchSubmit}>
+          <Form className='d-flex ' onSubmit={handleSearchSubmit}>
             <Form.Control
               type='search'
               placeholder='Search'
-              className='me-2'
+              className='SearchField me-2 '
               aria-label='Search'
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <Button variant='outline-success' type='submit'>
+            <Button
+              className='SearchButton'
+              variant='outline-success'
+              type='submit'
+            >
               Search
             </Button>
           </Form>
