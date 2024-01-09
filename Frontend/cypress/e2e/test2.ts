@@ -1,15 +1,34 @@
-import { When, Then, Given } from '@badeball/cypress-cucumber-preprocessor'
+import {
+  When,
+  Then,
+  Given,
+  Before,
+} from '@badeball/cypress-cucumber-preprocessor'
 
-Given('Jag är på hemsidan och ser slumpa knappen', () => {
-  cy.wait(3000)
+Before(() => {
   cy.visit('http://localhost:3000/')
 })
 
-When('Jag klickar på knappen', () => {
+const clickRandomButton = () => {
   cy.get('.RandomButton').click()
+}
+
+Given('Jag är på hemsidan och ser slumpa knappen', () => {})
+
+When('Jag klickar på knappen', () => {
+  clickRandomButton()
 })
 
 Then('Ett land med info visas', () => {
+  cy.get('.MainContainer').should('exist')
+  cy.get('h1').should('exist')
+})
+
+When('Jag klickar på knappen igen', () => {
+  clickRandomButton()
+})
+
+Then('Ett nytt land med info visas', () => {
   cy.get('.MainContainer').should('exist')
   cy.get('h1').should('exist')
 })

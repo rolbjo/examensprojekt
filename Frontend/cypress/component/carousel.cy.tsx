@@ -1,11 +1,17 @@
 import Carousel from '../../src/components/carousel'
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 
 describe('Carousel', () => {
   it('should navigate through carousel slides', () => {
-    cy.mount(<Carousel />)
+    cy.mount(
+      <BrowserRouter>
+        <Carousel interval={3000} />
+      </BrowserRouter>
+    )
+    cy.wait(1000)
 
-    cy.get('.carousel').should('be.visible')
+    cy.get('.carouselDiv').should('be.visible')
 
     cy.get('.carousel-control-next').click()
   })
