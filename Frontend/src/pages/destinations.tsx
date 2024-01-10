@@ -48,7 +48,7 @@ const Destinations: React.FC = () => {
               <div className='ListDiv'>
                 <div>
                   <h2>When to Travel</h2>
-                  <ul>
+                  <ul className='WhenToTravel'>
                     {destinationData.when_to_travel.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
