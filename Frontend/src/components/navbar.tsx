@@ -47,6 +47,9 @@ function NavbarComponent() {
             <Nav.Link as={Link} to='/home'>
               Home
             </Nav.Link>
+            <Nav.Link as={Link} to='/destinations'>
+              Destinations
+            </Nav.Link>
             <Nav.Link as={Link} to='/about'>
               About
             </Nav.Link>
