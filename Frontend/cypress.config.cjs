@@ -17,6 +17,9 @@ module.exports = defineConfig({
       })
       on('file:preprocessor', bundler)
 
+      // Integrate @cypress/code-coverage plugin
+      require('@cypress/code-coverage/task')(on, config)
+
       await addCucumberPreprocessorPlugin(on, config)
 
       return config
@@ -28,6 +31,7 @@ module.exports = defineConfig({
       'cypress/e2e/**/*.feature',
       'cypress/component/**/*.spec.{js,jsx,ts,tsx}',
     ],
+    coverageFolder: '/coverage',
   },
 
   component: {
