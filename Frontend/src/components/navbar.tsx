@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
@@ -49,6 +49,9 @@ function NavbarComponent() {
             </Nav.Link>
             <Nav.Link as={Link} to='/destinations'>
               Destinations
+            </Nav.Link>
+            <Nav.Link as={Link} to='/planning'>
+              Trip Planner
             </Nav.Link>
             <Nav.Link as={Link} to='/about'>
               About

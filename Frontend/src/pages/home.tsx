@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import Carousel from '../components/carousel'
-import RandomDest from '../components/randomDestButton'
+import React from 'react'
+import Carousel from '../components/Carousel'
+import RandomDest from '../components/RandomDestButton'
 import '../styles/pages/home.scss'
 
 function Home() {

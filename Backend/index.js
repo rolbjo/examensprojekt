@@ -24,6 +24,7 @@ const client = new pg_1.Client({
 client.connect();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
+app.use(express_1.default.json());
 app.get('/data/destinations', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { query } = req.query;
@@ -42,13 +43,46 @@ app.get('/data/destinations', (req, res) => __awaiter(void 0, void 0, void 0, fu
 app.get('/data/:destination', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { destination } = req.params;
-        console.log('Destination Parameter:', destination);
-        console.log('Destination Parameter:', destination, typeof destination);
         const data = yield client.query('SELECT * FROM destinations WHERE name = $1', [destination]);
         res.json(data.rows);
     }
     catch (error) {
         console.error('Error fetching data:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}));
+app.get('/trips', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield client.query('SELECT * FROM trips');
+        const trips = result.rows;
+        res.json(trips);
+    }
+    catch (error) {
+        console.error('Error fetching saved trips:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}));
+app.post('/data/saveTrip', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const tripData = req.body;
+        console.log('Received trip data:', tripData);
+        if (!tripData ||
+            !tripData.destination ||
+            !tripData.startDate ||
+            !tripData.endDate) {
+            return res.status(400).json({ error: 'Invalid trip data' });
+        }
+        const queryText = `
+        INSERT INTO trips (destination, start_date, end_date)
+        VALUES ($1, TO_DATE($2, 'YYYY-MM-DD'), TO_DATE($3, 'YYYY-MM-DD'))
+        RETURNING *;
+      `;
+        const values = [tripData.destination, tripData.startDate, tripData.endDate];
+        const savedTrip = yield client.query(queryText, values);
+        res.json(savedTrip.rows[0]);
+    }
+    catch (error) {
+        console.error('Error saving trip:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }));

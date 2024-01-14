@@ -20,6 +20,7 @@ When('Jag klickar på knappen', () => {
 })
 
 Then('Ett land med info visas', () => {
+  cy.url().should('include', 'fromRandom=true')
   cy.get('.MainContainer').should('exist')
   cy.get('h1').should('exist')
 })

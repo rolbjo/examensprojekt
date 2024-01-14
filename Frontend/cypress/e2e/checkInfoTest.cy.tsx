@@ -1,5 +1,5 @@
-describe('Carousel', () => {
-  it('Should show a destination when searching', () => {
+describe('My travel site', () => {
+  it('Should display destination info', () => {
     cy.visit('http://localhost:3000/Dubai')
 
     cy.get('.Desth1').should('include.text', 'Dubai')

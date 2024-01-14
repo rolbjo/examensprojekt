@@ -9,12 +9,12 @@ interface CarouselProps {
 
 const MyCarousel: React.FC<CarouselProps> = ({ interval }) => {
   return (
-    <div className='carouselDiv'>
+    <div className='CarouselDiv'>
       <Carousel interval={interval}>
         <Carousel.Item>
           <Link to={'/New York'}>
             <img
-              className='d-block carouselImg'
+              className='d-block CarouselImg'
               src='/brooklyn-bridge-1791001_1280.jpg'
               alt='First slide'
             />
@@ -23,7 +23,7 @@ const MyCarousel: React.FC<CarouselProps> = ({ interval }) => {
         <Carousel.Item>
           <Link to={'/Dubai'}>
             <img
-              className='d-block carouselImg'
+              className='d-block CarouselImg'
               src='/burj-khalifa-2212978_1280.jpg'
               alt='Second slide'
             />
@@ -32,7 +32,7 @@ const MyCarousel: React.FC<CarouselProps> = ({ interval }) => {
         <Carousel.Item>
           <Link to={'/Japan'}>
             <img
-              className='d-block carouselImg'
+              className='d-block CarouselImg'
               src='/heritage-5430081_1280.jpg'
               alt='Second slide'
             />
@@ -41,7 +41,7 @@ const MyCarousel: React.FC<CarouselProps> = ({ interval }) => {
         <Carousel.Item>
           <Link to={'/Italy'}>
             <img
-              className='d-block carouselImg'
+              className='d-block CarouselImg'
               src='/houses-4093227_1280.jpg'
               alt='Second slide'
             />

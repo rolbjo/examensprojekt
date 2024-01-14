@@ -1,4 +1,4 @@
-describe('Carousel', () => {
+describe('My travel site', () => {
   it('Should show a destination when searching', () => {
     cy.visit('http://localhost:3000')
 

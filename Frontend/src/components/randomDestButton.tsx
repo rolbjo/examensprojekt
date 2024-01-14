@@ -41,13 +41,11 @@ const RandomDest: React.FC = () => {
   }
 
   return (
-    <>
-      <div className='ButtonContainer'>
-        <button className='RandomButton' onClick={navigateToRandomDestination}>
-          Random Destination
-        </button>
-      </div>
-    </>
+    <div className='ButtonContainer'>
+      <button className='RandomButton' onClick={navigateToRandomDestination}>
+        Random Destination
+      </button>
+    </div>
   )
 }
 

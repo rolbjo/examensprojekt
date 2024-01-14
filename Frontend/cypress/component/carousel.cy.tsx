@@ -1,4 +1,4 @@
-import Carousel from '../../src/components/carousel'
+import Carousel from '../../src/components/Carousel'
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
