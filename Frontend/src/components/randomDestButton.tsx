@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import '../styles/components/randomDestButton.scss'
+import '../styles/components/randomDestButton.css'
 
 interface DestinationData {
   id: number

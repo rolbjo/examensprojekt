@@ -47,10 +47,13 @@ function NavbarComponent() {
             <Nav.Link as={Link} to='/home'>
               Home
             </Nav.Link>
+            <Nav.Link as={Link} to='/home'>
+              Inspiration
+            </Nav.Link>
             <Nav.Link as={Link} to='/destinations'>
               Destinations
             </Nav.Link>
-            <Nav.Link as={Link} to='/planning'>
+            <Nav.Link as={Link} to='/Plan your trip'>
               Trip Planner
             </Nav.Link>
             <Nav.Link as={Link} to='/about'>

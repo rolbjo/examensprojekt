@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "jsx": "preserve",
-    "esModuleInterop": true
-  },
-  "include": ["**/*.ts", "**/*.tsx"]
-}

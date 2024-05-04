@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import Navbar from './components/navbar'
-import { routes } from './routes'
+import React from 'react'
+import Navbar from './components/Navbar'
+import { routes } from './Routes'
 import { Routes, Route } from 'react-router-dom'
-import './app.scss'
+import './app.css'
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import '../styles/pages/tripPlanner.scss'
+import '../styles/pages/tripPlanner.css'
 
 interface Trip {
   id: number

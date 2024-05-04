@@ -1,7 +1,7 @@
 import React from 'react'
 import Carousel from '../components/Carousel'
 import RandomDest from '../components/RandomDestButton'
-import '../styles/pages/home.scss'
+import '../styles/pages/home.css'
 
 function Home() {
   return (

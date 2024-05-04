@@ -1,7 +1,7 @@
 import React from 'react'
 import { Carousel } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import '../styles/components/carousel.scss'
+import '../styles/components/carousel.css'
 
 interface CarouselProps {
   interval: number
