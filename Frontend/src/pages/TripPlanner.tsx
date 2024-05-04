@@ -19,7 +19,12 @@ const TripPlanner: React.FC = () => {
 
   const fetchTrip = async () => {
     try {
-      const response = await fetch('/trips')
+      const response = await fetch('/trips', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('token'), // Include the JWT in the Authorization header
+        },
+      })
 
       const data = await response.json()
 
@@ -44,6 +49,7 @@ const TripPlanner: React.FC = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('token'), // Include the JWT in the Authorization header
         },
         body: JSON.stringify(tripDetails),
       })

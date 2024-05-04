@@ -18,7 +18,17 @@ const AllDestinations: React.FC = () => {
 
   const fetchAllDestinations = async () => {
     try {
-      const response = await fetch('/data/destinations')
+      const response = await fetch('/data/destinations', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('token'), // Include the JWT in the Authorization header
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error('Not authorized')
+      }
+
       const data = await response.json()
       setDestinations(data)
     } catch (error) {
