@@ -2,5 +2,55 @@
   margin-top: 50px;
   margin-bottom: 30px;
   text-align: center;
-font-family: "Fjalla One";
+  font-family: 'Fjalla One';
+}
+
+select {
+  width: 80%;
+  box-shadow: 2px 5px 5px rgba(10, 20, 20, 0.15);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 36px;
+  margin-right: 10px;
+  font-family: 'Fjalla One';
+}
+option {
+  font-family: 'Fjalla One';
+  background-color: white;
+}
+
+label {
+  font-family: 'Fjalla One';
+}
+.form-select {
+  background-color: antiquewhite;
+  display: unset !important;
+  margin-bottom: 5px;
+}
+.form-select:focus {
+  box-shadow: none !important;
+  border-color: initial !important;
+}
+.BlogButton {
+  display: block !important;
+  margin: 0 auto;
+}
+.postDiv {
+  background-color: antiquewhite;
+  margin-bottom: 30px;
+  border-radius: 10px;
+}
+.postImage {
+  margin: auto;
+  max-width: 700px;
+  min-width: 700px;
+  max-height: 600px;
+}
+.postsWrapper {
+  max-width: 750px;
+  margin: auto;
+}
+.postTitle {
+  text-align: center;
 }

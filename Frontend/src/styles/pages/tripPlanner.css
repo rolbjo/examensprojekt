@@ -1,12 +1,50 @@
-.TripPlanner{
-  margin-left: 20px;
-  margin-top: 30px;
+.TripPlanner {
+  margin-top: 30px !important;
+  margin: auto;
+  background-color: antiquewhite;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 300px;
+  border-radius: 20px;
 }
-.SavedTripsh3{
+
+.TripH1 {
+  margin-bottom: 5px;
+  margin-top: 10px;
+  text-align: center;
+}
+.NewTripButton {
+  padding: 10px;
+  background-color: antiquewhite;
+  border-radius: 10px;
+  display: block;
+  margin: auto;
+}
+.BackButton {
+  padding: 10px;
+  background-color: antiquewhite;
+  border-radius: 10px;
+}
+.OnTripHeader {
+  text-align: center !important;
+  font-size: 50px;
+}
+
+.OnTripDescription {
+  text-align: center !important;
+  margin-top: 10px !important;
+  max-width: 500px;
+  margin: auto;
+}
+
+/* .SavedTripsh3 {
   margin-top: 20px;
 }
-.PlanTripsButton{
+.PlanTripsButton {
   background-color: white;
   margin-left: 5px;
   border-radius: 10px;
-}
+} */

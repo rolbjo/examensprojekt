@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   font-family: 'Fjalla One', sans-serif !important;
@@ -39,4 +43,10 @@ body {
 }
 .Footer a:hover {
   color: rgba(0, 0, 0, 0.7);
+}
+input {
+  border: 1px solid #000000;
+}
+button {
+  border: 1px solid #000000;
 }

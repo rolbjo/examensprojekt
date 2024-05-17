@@ -1,85 +1,71 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
-import Container from 'react-bootstrap/Container'
-import Form from 'react-bootstrap/Form'
-import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
+import { Link } from 'react-router-dom'
+import Login from './Login'
 
 function NavbarComponent() {
-  const [searchQuery, setSearchQuery] = useState('')
-  const navigate = useNavigate()
+  const [loginPop, setLoginPop] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'))
 
-  const handleSearchSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-    try {
-      const response = await fetch(`/data/destinations?query=${searchQuery}`)
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch destinations')
-      }
-
-      const data = await response.json()
-      console.log('Fetched destinations:', data)
-
-      const destinationName = data[0]?.name
-
-      navigate(`/${destinationName}`)
-      console.log(destinationName)
-    } catch (error) {
-      console.error('Error fetching destinations:', error)
-    }
+  const handleLogin = () => {
+    setIsLoggedIn(true)
+    window.location.reload()
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    setIsLoggedIn(false)
+    window.location.reload()
+  }
   return (
-    <Navbar sticky='top' expand='lg' className='bg-body-tertiary'>
-      <Container fluid>
-        <Navbar.Brand as={Link} to='/home'>
-          Travel inspo
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls='navbarScroll' />
-        <Navbar.Collapse id='navbarScroll'>
-          <Nav
-            className='me-auto my-2 my-lg-0'
-            style={{ maxHeight: '100px' }}
-            navbarScroll
+    <div
+      className='navbar bg-base-100'
+      style={{ display: 'flex', justifyContent: 'space-between' }}
+    >
+      <div>
+        <Link to='/' className='btn btn-ghost text-xl'>
+          Home
+        </Link>
+
+        <Link to='/planning' className='btn btn-ghost text-xl'>
+          Trip Planner
+        </Link>
+      </div>
+      <div>
+        {isLoggedIn ? (
+          <button
+            onClick={handleLogout}
+            className='btn btn-ghost text-xl navbar-end'
           >
-            <Nav.Link as={Link} to='/home'>
-              Home
-            </Nav.Link>
-            <Nav.Link as={Link} to='/home'>
-              Inspiration
-            </Nav.Link>
-            <Nav.Link as={Link} to='/destinations'>
-              Destinations
-            </Nav.Link>
-            <Nav.Link as={Link} to='/Plan your trip'>
-              Trip Planner
-            </Nav.Link>
-            <Nav.Link as={Link} to='/about'>
-              About
-            </Nav.Link>
-          </Nav>
-          <Form className='d-flex ' onSubmit={handleSearchSubmit}>
-            <Form.Control
-              type='search'
-              placeholder='Search'
-              className='SearchField me-2 '
-              aria-label='Search'
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+            Logout
+          </button>
+        ) : (
+          <button
+            onClick={() => setLoginPop(true)}
+            className='btn btn-ghost text-xl navbar-end'
+          >
+            Login
+          </button>
+        )}
+        <Login
+          loginPop={loginPop}
+          setLoginPop={setLoginPop}
+          onLogin={handleLogin}
+        />
+
+        <div
+          tabIndex={0}
+          role='button'
+          className='btn btn-ghost btn-circle avatar'
+        >
+          <div className='w-10 rounded-full'>
+            <img
+              alt='Tailwind CSS Navbar component'
+              src='https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg'
             />
-            <Button
-              className='SearchButton'
-              variant='outline-success'
-              type='submit'
-            >
-              Search
-            </Button>
-          </Form>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
