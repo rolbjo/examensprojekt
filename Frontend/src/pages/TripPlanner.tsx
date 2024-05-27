@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/pages/tripPlanner.css'
+import DayPlanner from '../components/dayPlanner'
 
 const TripPlanner = () => {
   const [tripStep, setTripStep] = useState(0)
@@ -85,7 +86,7 @@ const TripPlanner = () => {
 
   return (
     <>
-      <div>
+      <div className='ty'>
         {tripStep === 0 && !selectedTripId && (
           <button
             className='NewTripButton'
@@ -107,33 +108,31 @@ const TripPlanner = () => {
         {tripStep === 0 && (
           <div>
             {tripDetails && tripDetails.description && viewingTrip ? (
-              <div>
-                <h2 className='OnTripHeader'>{tripDetails.tripname}</h2>
-                <p className='OnTripDescription'>
-                  {tripDetails.description
-                    .replace(/\\n/g, '\n')
-                    .split('\n')
-                    .map((line, index) => (
-                      <React.Fragment key={index}>
-                        {line}
-                        <br />
-                      </React.Fragment>
-                    ))}
-                </p>
-              </div>
+              <>
+                <div>
+                  <h2 className='OnTripHeader'>{tripDetails.tripname}</h2>
+                  <p className='OnTripDescription'>
+                    {tripDetails.description
+                      .replace(/\\n/g, '\n')
+                      .split('\n')
+                      .map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
+                  </p>
+                </div>
+                <DayPlanner tripId={selectedTripId} />
+              </>
             ) : (
-              <div style={{ marginLeft: '20px' }}>
-                <h2 style={{ marginBottom: '20px' }}>My trips</h2>
+              <div className='TripsDiv'>
+                <h2 className='TripsH2'>My trips</h2>
                 {trips.map((trip) => (
                   <button
                     key={trip.id}
                     onClick={() => handleTripSelect(trip.id)}
-                    style={{
-                      display: 'block',
-                      marginBottom: '10px',
-                      padding: '10px',
-                      borderRadius: '5px',
-                    }}
+                    className='TripsButton'
                   >
                     {trip.tripname}
                   </button>
@@ -147,7 +146,7 @@ const TripPlanner = () => {
             <h1 className='TripH1'>Name your next adventure</h1>
             <form onSubmit={submitTripDetails}>
               <input
-                style={{ textAlign: 'center' }}
+                style={{ textAlign: 'center', marginBottom: '20px' }}
                 type='text'
                 placeholder='Your trip name'
                 value={tripName}

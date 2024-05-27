@@ -1,10 +1,19 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { BlogDialog, ShareButton } from './popup'
+import Login from '../components/Login'
 
 function BlogPostForm() {
   const [title, setTitle] = useState('')
   const [image, setImage] = useState<File | null>(null)
   const [description, setDescription] = useState('')
+
+  const [loginPop, setLoginPop] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'))
+
+  const handleLogin = useCallback(() => {
+    setIsLoggedIn(true)
+    window.location.reload()
+  }, [])
 
   const handleBlogSubmit = (event: React.FormEvent) => {
     event.preventDefault()
@@ -56,11 +65,15 @@ function BlogPostForm() {
     }
   }
 
-  // ...existing code...
-
   return (
     <>
-      <ShareButton />
+      <Login
+        loginPop={loginPop}
+        setLoginPop={setLoginPop}
+        onLogin={handleLogin}
+        message='Please log in to do this'
+      />
+      <ShareButton isLoggedIn={isLoggedIn} setLoginPop={setLoginPop} />
       <BlogDialog
         handleBlogSubmit={handleBlogSubmit}
         title={title}

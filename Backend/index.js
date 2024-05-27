@@ -60,6 +60,10 @@ app.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     console.log('Register request:', req.body);
     try {
         const { username, password } = req.body;
+        const userExists = yield client.query('SELECT * FROM users WHERE username = $1', [username]);
+        if (userExists.rows.length > 0) {
+            return res.status(400).json({ error: 'Username already exists' });
+        }
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
         const queryText = `
       INSERT INTO users (username, password)
@@ -109,34 +113,6 @@ app.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
     catch (error) {
         console.error('Error logging in:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-}));
-app.get('/data/destinations', jwtMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('Headers:', req.headers);
-    try {
-        const { query } = req.query;
-        let queryText = 'SELECT * FROM destinations';
-        if (query) {
-            queryText += ` WHERE name ILIKE '%${query}%'`;
-        }
-        const data = yield client.query(queryText);
-        console.log('Response data:', data);
-        res.json(data.rows);
-    }
-    catch (error) {
-        console.error('Error fetching data:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-}));
-app.get('/data/:destination', jwtMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { destination } = req.params;
-        const data = yield client.query('SELECT * FROM destinations WHERE name = $1', [destination]);
-        res.json(data.rows);
-    }
-    catch (error) {
-        console.error('Error fetching data:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }));
@@ -241,10 +217,9 @@ app.post('/api/saveBlogPost', upload.single('image'), jwtMiddleware, (req, res) 
             imagePath,
             req.user.id,
         ]; // Store the image path in the database
-        // Assuming 'client' is your PostgreSQL client
         const result = yield client.query(queryText, values);
         if (result.rows && result.rows.length > 0) {
-            res.json(result.rows[0]); // Send the inserted row back to the client
+            res.json(result.rows[0]);
         }
         else {
             throw new Error('Insert operation did not return any rows');
@@ -310,11 +285,12 @@ app.post('/api/replies', jwtMiddleware, (req, res) => __awaiter(void 0, void 0, 
         }
         const result = yield client.query('INSERT INTO replies (content, comment_id, user_id, parent_id) VALUES ($1, $2, $3, $4) RETURNING *, (SELECT username FROM users WHERE id = $3) as username', [content, comment_id, user_id, parent_id]);
         console.log('hehhehee', result);
-        result.rows[0].description = result.rows[0].description.replace(/\\n/g, '\n');
+        result.rows[0].content = result.rows[0].content.replace(/\\n/g, '\n');
         res.json(result.rows[0]);
     }
     catch (err) {
-        console.error(err);
+        console.error('Error message:', err.message);
+        console.error('Stack trace:', err.stack);
         res
             .status(500)
             .json({ error: 'An error occurred while creating the reply' });
@@ -365,6 +341,80 @@ app.get('/api/tripDetails/:tripId', jwtMiddleware, (req, res) => __awaiter(void 
         res
             .status(500)
             .json({ error: 'An error occurred while fetching the trip details' });
+    }
+}));
+app.get('/api/trips/:tripId', jwtMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tripId } = req.params;
+    const user_Id = req.user.id;
+    try {
+        // Fetch trip from the database by tripId and userId
+        const trip = yield client.query('SELECT * FROM trip_details WHERE id = $1 AND user_id = $2', [tripId, user_Id]);
+        if (trip.rows.length > 0) {
+            // Send the trip data as a response
+            res.json(trip.rows[0]);
+            console.log(trip.rows[0]);
+        }
+        else {
+            console.log(`Trip with ID ${tripId} not found or user ${user_Id} does not have access to it`);
+            res.status(404).json({ message: 'Trip not found' });
+        }
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}));
+app.post('/api/activities/:tripId', jwtMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { date, description } = req.body;
+    const tripId = req.params.tripId;
+    const userId = req.user.id;
+    try {
+        const result = yield client.query('INSERT INTO activities (trip_id, activity, date, user_id) VALUES ($1, $2, $3, $4) RETURNING *', [tripId, description, date, userId]);
+        res.status(200).json(result.rows[0]);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error adding activity' });
+    }
+}));
+app.put('/api/trips/:tripId/dates', jwtMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tripId } = req.params;
+    const userId = req.user.id;
+    const { startDate, endDate } = req.body;
+    try {
+        const trip = yield client.query('UPDATE trip_details SET start_date = $1, end_date = $2 WHERE id = $3 AND user_id = $4 RETURNING *', [startDate, endDate, tripId, userId]);
+        if (trip.rows.length > 0) {
+            res.json(trip.rows[0]);
+        }
+        else {
+            res.status(404).json({ message: 'Trip not found' });
+        }
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}));
+app.get('/api/activities/:tripId', jwtMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const tripId = req.params.tripId;
+    const userId = req.user.id;
+    try {
+        const result = yield client.query('SELECT * FROM activities WHERE trip_id = $1 AND user_id = $2 ORDER BY date', [tripId, userId]);
+        res.status(200).json(result.rows);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error fetching activities' });
+    }
+}));
+app.delete('/api/activities/:tripId/:activityId', jwtMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const tripId = req.params.tripId;
+    const activityId = req.params.activityId;
+    const userId = req.user.id;
+    try {
+        yield client.query('DELETE FROM activities WHERE id = $1 AND trip_id = $2 AND user_id = $3', [activityId, tripId, userId]);
+        res.status(200).json({ message: 'Activity deleted successfully' });
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error deleting activity' });
     }
 }));
 app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, 'uploads')));

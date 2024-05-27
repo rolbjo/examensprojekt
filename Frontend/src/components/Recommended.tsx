@@ -1,4 +1,5 @@
 import React from 'react'
+import '.././styles/components/recommended.css'
 
 const Recommended: React.FC = () => {
   const [formValues, setFormValues] = React.useState({
@@ -44,7 +45,7 @@ const Recommended: React.FC = () => {
     console.log(formValues)
   }
   return (
-    <div style={{ width: '20%', marginRight: '50px', marginTop: '20px' }}>
+    <div style={{ width: '20%', marginRight: '50px', marginTop: '120px' }}>
       <div style={{ position: 'sticky', top: '30px' }}>
         <h2 className='text-3xl font-bold underline'>
           Find your next destination
@@ -168,10 +169,18 @@ const Recommended: React.FC = () => {
             <option value='Low'>Low</option>
           </select>
           <br />
-          <input type='submit' value='Submit' />
+          <input
+            style={{
+              padding: '1px',
+              borderRadius: '5px',
+              backgroundColor: 'antiquewhite',
+            }}
+            type='submit'
+            value='Submit'
+          />
         </form>
         {country && (
-          <div>
+          <div className='resultContainer'>
             <h3>Your recommended destination is:</h3>
             <p>{country.country}</p>
             <p>{country.description}</p>

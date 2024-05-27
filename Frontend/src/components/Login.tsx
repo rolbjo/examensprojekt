@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import Register from './register'
 import '../styles/components/login.css'
 
@@ -18,6 +18,12 @@ const Login: React.FC<LoginProps> = ({
   const [loginUsername, setLoginUsername] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
   const [showRegister, setShowRegister] = useState(false)
+
+  useEffect(() => {
+    return () => {
+      console.log('Login component unmounted')
+    }
+  }, [])
 
   const login = (e: React.FormEvent) => {
     e.preventDefault()
@@ -40,8 +46,10 @@ const Login: React.FC<LoginProps> = ({
       .then((data) => {
         console.log('Login response:', data)
         localStorage.setItem('token', data.token) // Save the token in local storage
-
-        onLogin()
+        console.log(typeof onLogin)
+        if (onLogin) {
+          onLogin()
+        }
       })
       .catch((error) => alert('Error logging in'))
   }

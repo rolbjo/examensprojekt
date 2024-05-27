@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import '../styles/pages/home.css'
 import Recommended from '../components/Recommended'
@@ -19,6 +19,13 @@ function Home() {
   const [replyText, setReplyText] = useState('')
 
   const [openComments, setOpenComments] = useState<Record<string, boolean>>({})
+
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'))
+
+  const handleLogin = useCallback(() => {
+    setIsLoggedIn(true)
+    window.location.reload()
+  }, [])
 
   useEffect(() => {
     fetch('/api/blogPosts')
@@ -54,7 +61,6 @@ function Home() {
     })
 
     if (response.status === 403) {
-      // Show the login popup
       setLoginPop(true)
       return
     }
@@ -91,28 +97,38 @@ function Home() {
     const reply: Reply = await response.json()
     console.log('Replyeeeee:', reply)
 
-    setBlogPosts((prevPosts) =>
-      prevPosts.map((post) => ({
-        ...post,
-        comments: post.comments.map((comment) => {
-          if (comment.id === commentId) {
-            return {
-              ...comment,
-              replies: [...comment.replies, reply],
+    if (response.ok) {
+      setBlogPosts((prevPosts) =>
+        prevPosts.map((post) => ({
+          ...post,
+          comments: post.comments.map((comment) => {
+            if (comment.id === commentId) {
+              return {
+                ...comment,
+                replies: [...comment.replies, reply],
+              }
+            } else {
+              return comment
             }
-          } else {
-            return comment
-          }
-        }),
+          }),
+        }))
+      )
+      setOpenComments((prev) => ({
+        ...prev,
+        [commentId]: true,
       }))
-    )
-    setReplyText('')
+
+      setReplyText('')
+    } else {
+      console.error('Failed to submit reply')
+    }
   }
   return (
     <>
       <Login
         loginPop={loginPop}
         setLoginPop={setLoginPop}
+        onLogin={handleLogin}
         message='Please log in to do this'
       />
       <div style={{ display: 'flex' }}>
@@ -126,6 +142,7 @@ function Home() {
                 <img src={post.image} alt={post.title} className='postImage' />
                 <p style={{ textAlign: 'center' }}>{post.description}</p>
                 <form
+                  className='CommentForm'
                   onSubmit={(event) => {
                     event.preventDefault()
                     submitComment(post.id, commentText)
@@ -136,7 +153,9 @@ function Home() {
                     value={commentText}
                     onChange={(e) => setCommentText(e.target.value)}
                   />
-                  <button type='submit'>Submit Comment</button>
+                  <button className='CommentSubmit' type='submit'>
+                    Submit Comment
+                  </button>
                 </form>
                 {post.comments &&
                   post.comments.map((comment) => (
@@ -175,10 +194,10 @@ function Home() {
                                 console.log('frontendreplies', comment.replies)
                                 return (
                                   <Replies
-                                    allReplies={comment.replies} // Pass comment.replies as allReplies
+                                    allReplies={comment.replies}
                                     key={reply.id}
                                     reply={reply}
-                                    level={1} // Make sure this is 0 for the first level of replies
+                                    level={1}
                                     replyClicked={replyClicked}
                                     setReplyClicked={setReplyClicked}
                                     replyText={replyText}

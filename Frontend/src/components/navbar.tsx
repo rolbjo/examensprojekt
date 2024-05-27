@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import Login from './Login'
 
@@ -6,20 +6,25 @@ function NavbarComponent() {
   const [loginPop, setLoginPop] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'))
 
-  const handleLogin = () => {
+  const handleLogin = useCallback(() => {
     setIsLoggedIn(true)
     window.location.reload()
-  }
+  }, [])
 
   const handleLogout = () => {
     localStorage.removeItem('token')
     setIsLoggedIn(false)
     window.location.reload()
   }
+  console.log(typeof handleLogin)
   return (
     <div
-      className='navbar bg-base-100'
-      style={{ display: 'flex', justifyContent: 'space-between' }}
+      className='navbar'
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        backgroundColor: '#f8f9fa',
+      }}
     >
       <div>
         <Link to='/' className='btn btn-ghost text-xl'>

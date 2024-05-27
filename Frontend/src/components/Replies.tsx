@@ -43,7 +43,9 @@ function Replies({
             value={replyText}
             onChange={(e) => setReplyText(e.target.value)}
           />
-          <button type='submit'>Send reply</button>
+          <button className='ReplySubmit' type='submit'>
+            Send reply
+          </button>
         </form>
       )}
       {childReplies.map((childReply) => (
@@ -51,14 +53,12 @@ function Replies({
           allReplies={allReplies}
           key={childReply.id}
           reply={childReply}
-          level={level + 1} // Increment level for child replies
+          level={+1} // Increment level for child replies
           replyClicked={replyClicked}
           setReplyClicked={setReplyClicked}
           replyText={replyText}
           setReplyText={setReplyText}
-          submitReply={() =>
-            submitReply(reply.comment_id, replyText, childReply.id)
-          }
+          submitReply={submitReply}
         />
       ))}
     </div>

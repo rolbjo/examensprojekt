@@ -1,5 +1,5 @@
 .replies {
-  background-color: lightgray;
+  background-color: #f2f2f2;
   max-width: 100%;
   display: inline-block;
   padding: 5px;
@@ -11,4 +11,7 @@
   margin-left: 5px;
   color: #8d7070;
   border: none;
+}
+.ReplySubmit {
+  background-color: #f2f2f2;
 }

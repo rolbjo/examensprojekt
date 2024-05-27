@@ -25,8 +25,18 @@ const Register: React.FC<RegisterProps> = ({
         password: registerPassword,
       }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((err) => {
+            throw new Error(err.error)
+          })
+        }
+        return response.json()
+      })
       .then((data) => {
+        if (data.error) {
+          throw new Error(data.error)
+        }
         console.log('Registration response:', data)
         // Store the JWT token in localStorage
         localStorage.setItem('token', data.token)
@@ -34,7 +44,7 @@ const Register: React.FC<RegisterProps> = ({
       })
       .catch((error) => {
         console.error('Error:', error)
-        alert('Error registering')
+        alert(error.message)
       })
   }
   return (

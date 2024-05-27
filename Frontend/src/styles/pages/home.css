@@ -54,3 +54,10 @@ label {
 .postTitle {
   text-align: center;
 }
+.CommentSubmit {
+  background-color: #f2f2f2;
+}
+.CommentForm {
+  margin-left: 20px;
+  margin-top: 30px;
+}

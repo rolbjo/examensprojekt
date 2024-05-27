@@ -10,11 +10,39 @@
   max-width: 300px;
   border-radius: 20px;
 }
-
+.ty {
+  background-image: url('/public/pexels-photo-457882.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-bottom: 300px;
+  padding-top: 100px;
+}
+.TripsDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  flex-direction: column;
+  width: fit-content;
+  margin: auto;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: antiquewhite;
+}
 .TripH1 {
   margin-bottom: 5px;
   margin-top: 10px;
   text-align: center;
+}
+.TripsH2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.TripsButton {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
 }
 .NewTripButton {
   padding: 10px;
@@ -22,6 +50,9 @@
   border-radius: 10px;
   display: block;
   margin: auto;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  width: 250px;
 }
 .BackButton {
   padding: 10px;
@@ -38,6 +69,46 @@
   margin-top: 10px !important;
   max-width: 500px;
   margin: auto;
+}
+.dateHeader {
+  font-size: large;
+}
+.AddActivityButton {
+  display: flex;
+  margin: auto;
+  padding: 3px;
+  background-color: white;
+  border-radius: 5px;
+}
+.DateWithActivities {
+  background-color: antiquewhite;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 15px 35px 15px 35px;
+}
+.react-datepicker-wrapper {
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+.DatePicker {
+  text-align: center !important;
+}
+.DateMainHeader {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.DeleteActivity {
+  background-color: white;
+  border-radius: 5px;
+  padding: 1px;
+  margin-left: 10px;
+}
+.ShowDeleteButtons {
+  margin-left: 35px !important;
+  border-radius: 5px !important;
+  padding: 3px !important;
 }
 
 /* .SavedTripsh3 {

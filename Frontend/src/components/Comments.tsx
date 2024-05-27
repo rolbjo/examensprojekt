@@ -27,7 +27,7 @@ function Comment({
     <div key={comment.id} style={{ marginLeft: `${level * 20}px` }}>
       <div
         style={{
-          backgroundColor: 'lightgray',
+          backgroundColor: '#f2f2f2',
           maxWidth: '100%',
           display: 'inline-block',
           padding: '5px',
@@ -66,7 +66,9 @@ function Comment({
             value={replyText}
             onChange={(e) => setReplyText(e.target.value)}
           />
-          <button type='submit'>Send reply</button>
+          <button style={{ backgroundColor: '#f2f2f2' }} type='submit'>
+            Send reply
+          </button>
         </form>
       )}
     </div>

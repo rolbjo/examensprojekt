@@ -11,6 +11,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: white;
 }
 
 .ContentWrapper {
@@ -24,8 +25,7 @@ body {
   justify-content: center;
   background-color: #f8f9fa;
   color: black;
-  height: 50px;
-  margin-top: 40px;
+  padding-bottom: 5px;
   text-align: center;
 }
 .FooterFlex {
