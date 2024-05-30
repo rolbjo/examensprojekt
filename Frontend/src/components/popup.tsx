@@ -68,10 +68,10 @@ const ShareButton: React.FC<ShareButtonProps> = ({
         if (!isLoggedIn) {
           setLoginPop(true)
         } else {
-          const modal = document.getElementById('my_modal_2')
-          if (modal instanceof HTMLDialogElement) {
-            modal.showModal()
-          }
+          const modal = document.getElementById(
+            'my_modal_2'
+          ) as HTMLDialogElement
+          modal?.showModal()
         }
       }}
       style={{ margin: 'auto', display: 'block', marginBottom: '20px' }}

@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import Register from './register'
+import Register from './Register'
 import '../styles/components/login.css'
 
 interface LoginProps {

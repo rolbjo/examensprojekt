@@ -3,6 +3,7 @@
   margin-bottom: 30px;
   text-align: center;
   font-family: 'Fjalla One';
+  font-size: xx-large;
 }
 
 select {
@@ -40,6 +41,7 @@ label {
   background-color: antiquewhite;
   margin-bottom: 30px;
   border-radius: 10px;
+  padding-bottom: 10px;
 }
 .postImage {
   margin: auto;
@@ -53,6 +55,8 @@ label {
 }
 .postTitle {
   text-align: center;
+  font-size: x-large;
+  padding-top: 10px;
 }
 .CommentSubmit {
   background-color: #f2f2f2;

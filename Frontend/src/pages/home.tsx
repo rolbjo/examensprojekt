@@ -5,7 +5,7 @@ import Recommended from '../components/Recommended'
 import Comment from '../components/Comments'
 import Replies from '../components/Replies'
 import { Post, Reply } from '../types/types'
-import BlogPostForm from '../components/blogPost'
+import BlogPostForm from '../components/BlogPost'
 import Login from '../components/Login'
 
 function Home() {
@@ -31,7 +31,7 @@ function Home() {
     fetch('/api/blogPosts')
       .then((response) => response.json())
       .then((blogPosts) => {
-        setBlogPosts(blogPosts) // Update the state with the fetched data
+        setBlogPosts(blogPosts)
       })
   }, [])
 
@@ -168,7 +168,7 @@ function Home() {
                         setReplyText={setReplyText}
                         submitReply={submitReply}
                       />
-                      {/* Display the original comment with the same style */}
+
                       <button
                         style={{ border: 'none' }}
                         onClick={() =>

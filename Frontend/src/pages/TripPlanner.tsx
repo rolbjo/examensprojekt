@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/pages/tripPlanner.css'
-import DayPlanner from '../components/dayPlanner'
+import DayPlanner from '../components/DayPlanner'
+
+interface TripDetails {
+  tripname: string
+  description: string
+  id: string
+}
 
 const TripPlanner = () => {
   const [tripStep, setTripStep] = useState(0)
@@ -8,10 +14,10 @@ const TripPlanner = () => {
   const [tripName, setTripName] = useState('')
   const [tripDescription, setTripDescription] = useState('')
 
-  const [tripDetails, setTripDetails] = useState(null)
-  const [trips, setTrips] = useState([])
+  const [tripDetails, setTripDetails] = useState<TripDetails | null>(null)
+  const [trips, setTrips] = useState<TripDetails[]>([])
 
-  const [selectedTripId, setSelectedTripId] = useState(null)
+  const [selectedTripId, setSelectedTripId] = useState<string | null>(null)
 
   const [viewingTrip, setViewingTrip] = useState(false)
 
@@ -41,7 +47,7 @@ const TripPlanner = () => {
     fetchTrips()
   }, [])
 
-  async function handleTripSelect(tripId) {
+  async function handleTripSelect(tripId: string) {
     const response = await fetch(`/api/tripDetails/${tripId}`, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -54,7 +60,7 @@ const TripPlanner = () => {
     setViewingTrip(true)
   }
 
-  const submitTripDetails = async (event) => {
+  const submitTripDetails = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (tripStep === 2) {
       const tripDetails = {
@@ -123,20 +129,24 @@ const TripPlanner = () => {
                       ))}
                   </p>
                 </div>
-                <DayPlanner tripId={selectedTripId} />
+                <DayPlanner tripId={selectedTripId || 'defaultTripId'} />
               </>
             ) : (
               <div className='TripsDiv'>
                 <h2 className='TripsH2'>My trips</h2>
-                {trips.map((trip) => (
-                  <button
-                    key={trip.id}
-                    onClick={() => handleTripSelect(trip.id)}
-                    className='TripsButton'
-                  >
-                    {trip.tripname}
-                  </button>
-                ))}
+                {trips.length > 0 ? (
+                  trips.map((trip) => (
+                    <button
+                      key={trip.id}
+                      onClick={() => handleTripSelect(trip.id)}
+                      className='TripsButton'
+                    >
+                      {trip.tripname}
+                    </button>
+                  ))
+                ) : (
+                  <p>No trips added</p>
+                )}
               </div>
             )}
           </div>

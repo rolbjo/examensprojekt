@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
-import { BlogDialog, ShareButton } from './popup'
-import Login from '../components/Login'
+import { BlogDialog, ShareButton } from './Popup'
+import Login from './Login'
 
 function BlogPostForm() {
   const [title, setTitle] = useState('')
@@ -15,11 +15,13 @@ function BlogPostForm() {
     window.location.reload()
   }, [])
 
-  const handleBlogSubmit = (event: React.FormEvent) => {
+  const handleBlogSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
 
     if (image) {
-      submitBlogPost(title, description, image)
+      await submitBlogPost(title, description, image)
+      const modal = document.getElementById('my_modal_2') as HTMLDialogElement
+      modal?.close()
     }
   }
 

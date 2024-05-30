@@ -31,10 +31,7 @@ const Recommended: React.FC = () => {
       const data = await response.json()
       console.log('Data:', data)
       setCountry(data)
-      setError(null)
-    } catch (err) {
-      setError('An error occurred while fetching the country.')
-    }
+    } catch (err) {}
   }
 
   const handleChange = (e) => {
@@ -174,6 +171,7 @@ const Recommended: React.FC = () => {
               padding: '1px',
               borderRadius: '5px',
               backgroundColor: 'antiquewhite',
+              cursor: 'pointer',
             }}
             type='submit'
             value='Submit'

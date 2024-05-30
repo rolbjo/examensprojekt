@@ -4,17 +4,25 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '../styles/pages/tripPlanner.css'
 
 type DayPlannerProps = { tripId: string }
+interface ActivityDetail {
+  id: number
+  text: string
+}
+type Day = {
+  date: Date
+  activityDetails: ActivityDetail[]
+}
 
 const DayPlanner: React.FC<DayPlannerProps> = ({ tripId }) => {
   const [tripStartDate, setTripStartDate] = useState<Date | null>(null)
   const [tripEndDate, setTripEndDate] = useState<Date | null>(null)
-  const [daysToPlan, setDaysToPlan] = useState([])
-  const [currentDescription, setCurrentDescription] = useState([])
-  const [showInput, setShowInput] = useState(null)
+  const [daysToPlan, setDaysToPlan] = useState<Day[]>([])
+  const [currentDescription, setCurrentDescription] = useState<string[]>([])
+  const [showInput, setShowInput] = useState<number | null>(null)
   const [showDeleteButtons, setShowDeleteButtons] = useState(false)
 
   // Function to generate an array of dates between the start and end dates
-  function generateDates(startDate, endDate) {
+  function generateDates(startDate: Date, endDate: Date) {
     let dates = []
     let currentDate = new Date(startDate)
 
@@ -22,7 +30,7 @@ const DayPlanner: React.FC<DayPlannerProps> = ({ tripId }) => {
       dates.push({ date: new Date(currentDate), activityDetails: [] })
       currentDate.setDate(currentDate.getDate() + 1)
     }
-    console.log('dateees', dates)
+
     return dates
   }
 
@@ -96,7 +104,7 @@ const DayPlanner: React.FC<DayPlannerProps> = ({ tripId }) => {
     fetchActivities()
   }, [tripId])
 
-  async function updateTripDates(startDate, endDate) {
+  async function updateTripDates(startDate: Date, endDate: Date) {
     // Adjust the dates to UTC
     const startDateUTC = new Date(
       Date.UTC(
@@ -126,7 +134,7 @@ const DayPlanner: React.FC<DayPlannerProps> = ({ tripId }) => {
     })
   }
 
-  async function handleAddActivity(index) {
+  async function handleAddActivity(index: number) {
     const activityDescription = currentDescription[index]
 
     // Adjust the date to UTC and add one day
@@ -135,7 +143,6 @@ const DayPlanner: React.FC<DayPlannerProps> = ({ tripId }) => {
       Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
     )
 
-    // Post the activity to the server
     const response = await fetch(`/api/activities/${tripId}`, {
       method: 'POST',
       headers: {
@@ -168,7 +175,7 @@ const DayPlanner: React.FC<DayPlannerProps> = ({ tripId }) => {
     }
   }
 
-  async function handleDeleteActivity(day, activityIndex) {
+  async function handleDeleteActivity(day: Day, activityIndex: number) {
     const activityId = day.activityDetails[activityIndex].id
 
     // Delete the activity from the server
@@ -204,11 +211,11 @@ const DayPlanner: React.FC<DayPlannerProps> = ({ tripId }) => {
         className='DatePicker'
         selected={tripEndDate}
         onChange={(date) => {
-          console.log('Selected end date:', date)
           setTripEndDate(date)
-
-          setDaysToPlan(generateDates(tripStartDate, date))
-          updateTripDates(tripStartDate, date)
+          if (tripStartDate && date) {
+            setDaysToPlan(generateDates(tripStartDate, date))
+            updateTripDates(tripStartDate, date)
+          }
         }}
         placeholderText='Select end date'
       />
@@ -230,14 +237,25 @@ const DayPlanner: React.FC<DayPlannerProps> = ({ tripId }) => {
                 value={currentDescription[index] || ''}
                 onChange={(e) =>
                   setCurrentDescription((prev) => {
-                    const newDescriptions = [...prev]
+                    const newDescriptions: string[] = [...prev]
                     newDescriptions[index] = e.target.value
+
                     return newDescriptions
                   })
                 }
               />
-              <button onClick={() => handleAddActivity(index)}>Save</button>
-              <button onClick={() => setShowInput(null)}>Cancel</button>
+              <button
+                className='SaveActivity'
+                onClick={() => handleAddActivity(index)}
+              >
+                Save
+              </button>
+              <button
+                className='CancelActivity'
+                onClick={() => setShowInput(null)}
+              >
+                Cancel
+              </button>
             </>
           ) : (
             <button
@@ -249,6 +267,7 @@ const DayPlanner: React.FC<DayPlannerProps> = ({ tripId }) => {
           )}
           <ul>
             {day.activityDetails?.map((activityDetail, i) => {
+              console.log('Activity Detail:', activityDetail)
               console.log('yoyoyo', day)
               return (
                 <li style={{ listStyle: 'inside' }} key={i}>

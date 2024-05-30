@@ -14,7 +14,7 @@
   background-image: url('/public/pexels-photo-457882.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
-  padding-bottom: 300px;
+  padding-bottom: 500px;
   padding-top: 100px;
 }
 .TripsDiv {
@@ -37,6 +37,7 @@
 .TripsH2 {
   text-align: center;
   margin-bottom: 20px;
+  font-size: 20px;
 }
 .TripsButton {
   margin-bottom: 10px;
@@ -53,11 +54,13 @@
   margin-bottom: 50px;
   margin-top: 50px;
   width: 250px;
+  font-size: 22px;
 }
 .BackButton {
   padding: 10px;
-  background-color: antiquewhite;
+  background-color: white;
   border-radius: 10px;
+  margin-left: 30px;
 }
 .OnTripHeader {
   text-align: center !important;
@@ -109,8 +112,14 @@
   margin-left: 35px !important;
   border-radius: 5px !important;
   padding: 3px !important;
+  background-color: white;
 }
-
+.SaveActivity {
+  background-color: white;
+}
+.CancelActivity {
+  background-color: white;
+}
 /* .SavedTripsh3 {
   margin-top: 20px;
 }
